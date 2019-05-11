@@ -47,7 +47,7 @@ public class StageStart extends Stage implements InitComponentV2 {
 		
 		HBox boxOk = new HBox();
 		
-		check = new CheckBox("Только \".json\" (beta)");
+		check = new CheckBox("Только \".json\"");
 		check.setVisible(false);
 
 		Button OK = new Button("Старт");
