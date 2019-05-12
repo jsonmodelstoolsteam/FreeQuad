@@ -34,7 +34,7 @@ public class Main extends Application {
 		//Регистрация окон
 		initStage();
 		
-		//�Замена главного окна
+		//Замена главного окна
 		primaryStage = helper.reloadPrimaryStage(0);
 		
 		//Показ главного окна
