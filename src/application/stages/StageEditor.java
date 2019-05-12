@@ -7,7 +7,10 @@ import application.stages.components.ModScrollPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -56,6 +59,8 @@ public class StageEditor extends Stage implements InitComponentV2 {
         //Установка размеров компонентов
         menuBar.setPrefWidth(25);
         toolUp.setPrefHeight(25);
+        labelTools.setPrefWidth(190);
+        labelEditor.setPrefWidth(685);
         leftBox.setPrefSize(200, 650);
         editorPane.setPrefSize(700, 650);
         rightBox.setPrefSize(200, 650);
