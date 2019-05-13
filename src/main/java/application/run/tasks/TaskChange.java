@@ -67,6 +67,6 @@ public class TaskChange extends ModTaskChange {
 	@Override
 	protected void succeeded() {
 		super.succeeded();
-		((StageChangeModel)helper.getStage(1)).updateTextArea(helper);
+		((StageChangeModel)helper.getStage("ChangeModel")).updateTextArea(helper);
 	}
 }

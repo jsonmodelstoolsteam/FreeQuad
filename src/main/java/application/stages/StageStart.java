@@ -59,8 +59,8 @@ public class StageStart extends Stage implements InitComponentV2 {
 		OK.setOnMouseReleased(event -> {
 			String act = choiceBoxAct.getSelectionModel().getSelectedItem();
 			
-			if(act.equals(act1)) helper.showStage(1, check.isSelected());
-			else if(act.equals(act2)) helper.showStage(2);
+			if(act.equals(act1)) helper.showStage("ChangeModel", check.isSelected());
+			else if(act.equals(act2)) helper.showStage("FromJava");
 			else if(act.equals(act1)) ;
 			else if(act.equals(act3)) ;
 			else if(act.equals(act4)) ;

@@ -12,45 +12,46 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	
-	static int weight;
-	static int height;
-	
-	protected Parameters par;
-	private Helper helper;
-	
-	@Override
-	public void start(Stage primaryStage) {	
-		
-		//Приложение сможет работать в фоне
-		Platform.setImplicitExit(false);
-		
-		//Самый главный контент:)
-		helper = new Helper(getHostServices());
-		par = getParameters();
-		
-		//Менеджер задач
-		helper.setTaskManager(new TaskManager(new ProgressPane()));
-		
-		//Регистрация окон
-		initStage();
-		
-		//Замена главного окна
-		primaryStage = helper.reloadPrimaryStage(3);
-		
-		//Показ главного окна
-		primaryStage.show();
-	}
-	private void initStage() {
-		helper.createStage(new StageStart(helper), 0);
-		helper.createStage(new StageChangeModel(helper), 1);
-		helper.createStage(new StageFromJava(helper), 2);
-		helper.createStage(new StageEditor(helper), 3);
-	}
-	
-	public static void main(String[] args) {
-		weight = (int) Screen.getPrimary().getVisualBounds().getWidth();
-		height = (int) Screen.getPrimary().getVisualBounds().getHeight();
-		launch(args);
-	}
+
+    static int weight;
+    static int height;
+
+    protected Parameters par;
+    private Helper helper;
+
+    @Override
+    public void start(Stage primaryStage) {
+
+        //Приложение сможет работать в фоне
+        Platform.setImplicitExit(false);
+
+        //Самый главный контент:)
+        helper = new Helper(getHostServices());
+        par = getParameters();
+
+        //Менеджер задач
+        helper.setTaskManager(new TaskManager(new ProgressPane()));
+
+        //Регистрация окон
+        initStage();
+
+        //Замена главного окна
+        primaryStage = helper.reloadPrimaryStage("Editor");
+
+        //Показ главного окна
+        primaryStage.show();
+    }
+
+    private void initStage() {
+        helper.createStage(new StageStart(helper), "Start");
+        helper.createStage(new StageChangeModel(helper), "ChangeModel");
+        helper.createStage(new StageFromJava(helper), "FromJava");
+        helper.createStage(new StageEditor(helper), "Editor");
+    }
+
+    public static void main(String[] args) {
+        weight = (int) Screen.getPrimary().getVisualBounds().getWidth();
+        height = (int) Screen.getPrimary().getVisualBounds().getHeight();
+        launch(args);
+    }
 }

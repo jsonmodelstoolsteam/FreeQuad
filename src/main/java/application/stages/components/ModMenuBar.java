@@ -22,11 +22,11 @@ public class ModMenuBar extends MenuBar {
         MenuItem newItemM = new MenuItem("Закрыть проект");
         newItemM.setOnAction(event -> {
         	root.reloadSession(helper, true);
-        	helper.showStage(0);
+        	helper.showStage("Start");
         });
 
         MenuItem menu = new MenuItem("Меню");
-        menu.setOnAction(event -> helper.showStage(0));
+        menu.setOnAction(event -> helper.showStage("Start"));
 
         MenuItem exitItem = new MenuItem("Выход");
         exitItem.setOnAction(event -> ((Stage)root).fireEvent(new WindowEvent((Stage)root, 
