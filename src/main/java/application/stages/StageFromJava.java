@@ -87,7 +87,7 @@ public class StageFromJava extends Stage implements InitComponentV2 {
 			ObjectType type = ObjectType.getByCode(typeCode);
 			return new SimpleObjectProperty<>(type);
 		});
-        columnType.setCellFactory(ComboBoxTableCell.forTableColumn(typeList)); 
+        columnType.setCellFactory(ComboBoxTableCell.forTableColumn(typeList));
         columnType.setOnEditCommit((CellEditEvent<ObjectFile, ObjectType> event) -> {
             TablePosition<ObjectFile, ObjectType> pos = event.getTablePosition();
             ObjectType newType = event.getNewValue();
@@ -96,10 +96,10 @@ public class StageFromJava extends Stage implements InitComponentV2 {
             object.setName(newType.getCode());
         });
         columnType.setMinWidth(149);
-        
+
         list.getColumns().addAll(columnName, columnType);
 
-		menuBar.setPrefSize(800, 25);		
+		menuBar.setPrefSize(800, 25);
 		toolUp.setPrefSize(800, 30);
 		labelList.setPrefWidth(287);
 		list.setPrefSize(300, 395);
@@ -117,23 +117,23 @@ public class StageFromJava extends Stage implements InitComponentV2 {
 				//1
 				//2
 				tab2.setContent(boxTab2);
-					
+
 		root.getChildren().addAll(menuBar, toolUp, boxTools);
-		
+
 		buttonChooser.setOnAction(e -> openExplorer(helper));
-		
+
 		setScene(new Scene(root, 800, 450));
 		sizeToScene();
 		setResizable(false);
 		getIcons().add(new ModIconImage(helper, "icon2.png"));
 		setTitle(act);
 	}
-	
+
 	private void openExplorer(Helper helper) {
 		File selectedFile = helper.initFileOpen(this, new File(System.getProperty("user.home")), "Выбор .java файла", "*.java");
 		if (selectedFile != null) readFromFile(selectedFile);
 	}
-	
+
 	private void readFromFile(File selectedFile) {
 		file = selectedFile;
 		try {
@@ -153,12 +153,12 @@ public class StageFromJava extends Stage implements InitComponentV2 {
 						}
 					}
 				}
-			});		
-		} 
+			});
+		}
 		catch (IOException e) {e.printStackTrace();}
 		list.getSelectionModel().selectFirst();
 	}
-	
+
 	@Override
 	public boolean onShow(Helper helper, Object... params) {
 		return true;

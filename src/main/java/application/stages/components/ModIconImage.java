@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 
 public class ModIconImage extends Image {
 
-	public ModIconImage(Helper helper, String name) {
-		super(helper.getRes(name));
-	}
+    public ModIconImage(Helper helper, String name) {
+        super(helper.getRes(name));
+    }
 }

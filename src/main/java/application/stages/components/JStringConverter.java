@@ -7,25 +7,25 @@ import javafx.util.StringConverter;
 
 public class JStringConverter extends StringConverter<JFile> {
 
-	private ObservableList<JFile> bList;
+    private ObservableList<JFile> bList;
 
-	public JStringConverter(ObservableList<JFile> list) {
-		bList = list;
-	}
+    public JStringConverter(ObservableList<JFile> list) {
+        bList = list;
+    }
 
-	@Override
-	@Nullable
-	public JFile fromString(String string) {
-		JFile fileI = null;
-		for (JFile file : bList) {
-			if (file.getName().equals(string)) fileI = file;
-			break;
-		}
-		return fileI;
-	}
+    @Override
+    @Nullable
+    public JFile fromString(String string) {
+        JFile fileI = null;
+        for (JFile file : bList) {
+            if (file.getName().equals(string)) fileI = file;
+            break;
+        }
+        return fileI;
+    }
 
-	@Override
-	public String toString(JFile file) {
-		return file.getName();
-	}
+    @Override
+    public String toString(JFile file) {
+        return file.getName();
+    }
 }

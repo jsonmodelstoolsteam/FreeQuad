@@ -58,9 +58,9 @@ public class StageChangeModel extends Stage implements InitComponentV2 {
 	private TextArea area;
 	private boolean allFiles;
 	private boolean changeCheck;
-	
+
 	public StageChangeModel(Helper helper) {
-		
+
 		deleteWork = false;
 		allFiles = false;
 		changeCheck = false;
@@ -78,7 +78,7 @@ public class StageChangeModel extends Stage implements InitComponentV2 {
 				VBox boxMarkers = new VBox();
 					area = new TextArea();
 					area.setScrollLeft(Double.MAX_VALUE);
-					area.setScrollTop(Double.MAX_VALUE);	
+					area.setScrollTop(Double.MAX_VALUE);
 					area.setEditable(false);
 					TitledPane paneMarkers = new TitledPane();
 					paneMarkers.setText("Создание маркеров");
@@ -105,7 +105,7 @@ public class StageChangeModel extends Stage implements InitComponentV2 {
 								labelWarningMarkers.setTextFill(Color.RED);
 				VBox listPanel = new VBox();
 					list = new ListView<>(FXCollections.observableArrayList());
-					list.setCellFactory(filesListView -> new ModListCell(allowExtension));				
+					list.setCellFactory(filesListView -> new ModListCell(allowExtension));
 					list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 					list.getSelectionModel().select(0);
 					TitledPane paneCatalogSettings = new TitledPane();
@@ -123,7 +123,7 @@ public class StageChangeModel extends Stage implements InitComponentV2 {
 							allowDelete.setFont(helper.standardFont);
 							allowExtension = new CheckBox("Отображать разрешения");
 							allowExtension.setFont(helper.standardFont);
-						
+
 				ModScrollPane scroll = new ModScrollPane();
 				scroll.setFitToWidth(true);
 					VBox scrollBox = new VBox();
@@ -146,14 +146,14 @@ public class StageChangeModel extends Stage implements InitComponentV2 {
 							boxStart.setSpacing(7D);
 								Label applyFor = new Label("Применить для:");
 								applyFor.setFont(helper.standardFont);
-								HBox applyBox = new HBox();			
+								HBox applyBox = new HBox();
 									Button applySelect = new Button("Выделенных файлов");
 									Button applyAll = new Button("Всех файлов");
 						TitledPane progress = new TitledPane();
 						progress.setText("Прогресс");
 						progress.setFont(helper.standardFontTitle);
 							ProgressPane progressPane = helper.getTaskManager().getProgressPane();
-							
+
 		boxMarkers.setPrefSize(330, 575);
 		deleteBox.setPrefSize(1000, 30);
 		list.setPrefSize(340, 575);
@@ -168,15 +168,15 @@ public class StageChangeModel extends Stage implements InitComponentV2 {
 		minus2.setPrefWidth(27);
 		applySelect.setPrefWidth(170);
 		applyAll.setPrefWidth(140);
-		
+
 		paneReplace.setExpanded(false);
 		settings.setExpanded(false);
 		start.setExpanded(false);
 		progress.setExpanded(false);
-		
+
 		deleteBox.getChildren().addAll(deleteLabel, deleteLink);
 		HBox.setMargin(deleteLabel, new Insets(2, 0, 0, 0));
-		
+
 		boxTools.getChildren().addAll(boxMarkers, listPanel, scroll);
 			boxMarkers.getChildren().addAll(area, paneMarkers, paneReplace);
 				//2
