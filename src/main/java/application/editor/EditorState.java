@@ -1,5 +1,7 @@
 package application.editor;
 
+import application.editor.datamodel.ExtendedJsonModel;
+
 public class EditorState {
     public CameraPos cameraPos;
     public ExtendedJsonModel model;
