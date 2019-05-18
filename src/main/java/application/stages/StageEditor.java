@@ -14,13 +14,20 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
-public class StageEditor extends Stage implements InitComponentV2 {
+public class StageEditor implements InitComponentV2 {
+    @Override
+    public boolean onShow(Helper helper, Object... params) {
+        return true;
+    }
 
-    private final String act = "Создание моделей из .java";
+    @Override
+    public void reloadSession(Helper helper, boolean hide) {
+    }
 
-    public StageEditor(Helper helper) {
+    @Override
+    public Scene getScene(Helper helper) {
+
 
         //Визуальное расположение панелей
         VBox root = new VBox();
@@ -31,34 +38,34 @@ public class StageEditor extends Stage implements InitComponentV2 {
         toolUp.setOrientation(Orientation.HORIZONTAL);
         toolUp.setFocusTraversable(false);
         toolUp.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-            Label labelTools = new Label("Инструменты");
-            Separator sepToolUp1 = new Separator(Orientation.VERTICAL);
-            Label labelEditor = new Label("Редактор");
-            Separator sepToolUp2 = new Separator(Orientation.VERTICAL);
-            Label labelStructure = new Label("Структура");
+        Label labelTools = new Label("Инструменты");
+        Separator sepToolUp1 = new Separator(Orientation.VERTICAL);
+        Label labelEditor = new Label("Редактор");
+        Separator sepToolUp2 = new Separator(Orientation.VERTICAL);
+        Label labelStructure = new Label("Структура");
         //Основная панель редактора
         BorderPane primaryBox = new BorderPane();
-            ModScrollPane leftScroll = new ModScrollPane();
-            leftScroll.setFitToWidth(true);
-                //Левое меню
-                VBox leftBox = new VBox();
-                    TitledPane paneTools = new TitledPane();
-                    paneTools.setText("Инструменты");
-                    TitledPane panePrimitives = new TitledPane();
-                    panePrimitives.setText("Примитивы");
-            //Панель редактора
-            Pane editorPane = new Pane();
-                SwingNode swingNode = new SwingNode();
-                editorPane.getChildren().add(swingNode);
+        ModScrollPane leftScroll = new ModScrollPane();
+        leftScroll.setFitToWidth(true);
+        //Левое меню
+        VBox leftBox = new VBox();
+        TitledPane paneTools = new TitledPane();
+        paneTools.setText("Инструменты");
+        TitledPane panePrimitives = new TitledPane();
+        panePrimitives.setText("Примитивы");
+        //Панель редактора
+        Pane editorPane = new Pane();
+        SwingNode swingNode = new SwingNode();
+        editorPane.getChildren().add(swingNode);
 
-                //Тут, возможно, панель редактора
-            ModScrollPane rightScroll = new ModScrollPane();
-            rightScroll.setFitToWidth(true);
-                //Правое меню
-                VBox rightBox = new VBox();
-                    TitledPane paneStructure = new TitledPane();
-                        paneStructure.setText("Структура модели");
-                        //Тут, возможно, панель работы с моделью (структура данных)
+        //Тут, возможно, панель редактора
+        ModScrollPane rightScroll = new ModScrollPane();
+        rightScroll.setFitToWidth(true);
+        //Правое меню
+        VBox rightBox = new VBox();
+        TitledPane paneStructure = new TitledPane();
+        paneStructure.setText("Структура модели");
+        //Тут, возможно, панель работы с моделью (структура данных)
 
         //Установка размеров компонентов
         menuBar.setPrefWidth(25);
@@ -72,29 +79,29 @@ public class StageEditor extends Stage implements InitComponentV2 {
 
         //Визуальное добавление панелей
         root.getChildren().addAll(menuBar, toolUp, primaryBox);
-            //2
-            toolUp.getItems().addAll(labelTools, sepToolUp1, labelEditor, sepToolUp2, labelStructure);
-            //3
-            primaryBox.setLeft(leftScroll);
-                leftScroll.setContent(leftBox);
-                    leftBox.getChildren().addAll(paneTools, panePrimitives);
-            primaryBox.setCenter(editorPane);
+        //2
+        toolUp.getItems().addAll(labelTools, sepToolUp1, labelEditor, sepToolUp2, labelStructure);
+        //3
+        primaryBox.setLeft(leftScroll);
+        leftScroll.setContent(leftBox);
+        leftBox.getChildren().addAll(paneTools, panePrimitives);
+        primaryBox.setCenter(editorPane);
 
-            primaryBox.setRight(rightScroll);
-                rightScroll.setContent(rightBox);
-                    rightBox.getChildren().add(paneStructure);
+        primaryBox.setRight(rightScroll);
+        rightScroll.setContent(rightBox);
+        rightBox.getChildren().add(paneStructure);
 
         //Настройка окно
-        setScene(new Scene(root, 1100, 700));
-        sizeToScene();
-        setResizable(false);
-        setTitle("Редактор моделей");
-        getIcons().add(new ModIconImage(helper, "icon2.png"));
+        return new Scene(root, 1100, 700);
     }
 
     @Override
-    public boolean onShow(Helper helper, Object... params) {return true;}
+    public String getTitle() {
+        return "Редактор моделей";
+    }
 
     @Override
-    public void reloadSession(Helper helper, boolean hide) {}
+    public ModIconImage getIcon(Helper helper) {
+        return new ModIconImage(helper, "icon2.png");
+    }
 }

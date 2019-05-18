@@ -8,7 +8,6 @@ import org.apache.commons.lang3.tuple.Pair;
 public class EditorState {
     public CameraPos cameraPos;
     public ExtendedJsonModel model;
-    public ImmutableList<Pair<Lens, Quad>> selection;
     public Tool currentTool;
 
 

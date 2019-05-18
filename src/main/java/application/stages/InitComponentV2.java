@@ -1,12 +1,11 @@
 package application.stages;
 
-import java.io.File;
-
+import application.Helper;
 import com.sun.istack.internal.Nullable;
 
-import application.Helper;
+import java.io.File;
 
-public interface InitComponentV2 {
+public interface InitComponentV2 extends SceneSource {
     public boolean onShow(Helper helper, Object... params);
 
     public void reloadSession(Helper helper, boolean hide);
@@ -16,5 +15,4 @@ public interface InitComponentV2 {
         return null;
     }
 
-    ;
 }

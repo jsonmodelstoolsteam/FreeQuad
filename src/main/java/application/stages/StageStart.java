@@ -10,20 +10,26 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
-public class StageStart extends Stage implements InitComponentV2 {
+public class StageStart implements InitComponentV2 {
 
     private ChoiceBox<String> choiceBoxAct;
     private CheckBox check;
 
-    public StageStart(Helper helper) {
+    @Override
+    public boolean onShow(Helper helper, Object... params) {
+        return true;
+    }
+
+    @Override
+    public void reloadSession(Helper helper, boolean hide) {
+        check.setSelected(true);
+    }
+
+    @Override
+    public Scene getScene(Helper helper) {
         VBox root = new VBox();
         String ver1 = "1.12+";
         String act1 = "Изменение моделей";
@@ -61,9 +67,8 @@ public class StageStart extends Stage implements InitComponentV2 {
 
             if (act.equals(act1)) helper.showStage("ChangeModel", check.isSelected());
             else if (act.equals(act2)) helper.showStage("FromJava");
-            else if (act.equals(act1)) ;
-            else if (act.equals(act3)) ;
-            else if (act.equals(act4)) ;
+            else if (act.equals(act3)) helper.showStage("Editor");
+            else if (act.equals(act4)) helper.showStage("Editor");
         });
 
         boxOk.getChildren().addAll(check, OK);
@@ -76,19 +81,16 @@ public class StageStart extends Stage implements InitComponentV2 {
         root.getChildren().addAll(box1, box2, boxOk);
         root.setBackground(new Background(new BackgroundFill(Color.LIGHTSTEELBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        setScene(new Scene(root, 255, 170));
-        setResizable(false);
-        setTitle("Выбор задач");
-        getIcons().add(new ModIconImage(helper, "icon1.png"));
+        return new Scene(root, 255, 170);
     }
 
     @Override
-    public boolean onShow(Helper helper, Object... params) {
-        return true;
+    public String getTitle() {
+        return "Выбор задач";
     }
 
     @Override
-    public void reloadSession(Helper helper, boolean hide) {
-        check.setSelected(true);
+    public ModIconImage getIcon(Helper helper) {
+        return new ModIconImage(helper, "icon1.png");
     }
 }

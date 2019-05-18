@@ -3,15 +3,17 @@ package application;
 import application.functional.ButtonFunction;
 import application.run.TaskManager;
 import application.stages.InitComponentV2;
+import application.stages.SceneSource;
 import com.sun.istack.internal.Nullable;
-import javafx.application.HostServices;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.text.Font;
-import javafx.stage.*;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +29,7 @@ import java.util.regex.Pattern;
 
 public class Helper {
 
-    private Map<String, Stage> listStage;
+    private Map<String, SceneSource> listStage;
     private String selectedStage;
     private String lastStage;
 
@@ -36,10 +38,8 @@ public class Helper {
     public final Font standardFontTitle;
     public final Font bigFont;
     private TaskManager taskManager;
-    private final HostServices host;
 
-    public Helper(HostServices host) {
-        this.host = host;
+    public Helper() {
         charset = StandardCharsets.UTF_8;
         standardFont = new Font(12.5);
         standardFontTitle = new Font(13);
@@ -133,62 +133,49 @@ public class Helper {
         return result.isPresent() ? result.get() : null;
     }
 
-    public File initDirect(Stage stage, File directory, String title) {
+    public File initDirect(File directory, String title) {
         final DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle(title);
         directoryChooser.setInitialDirectory(directory);
-        File file = directoryChooser.showDialog(stage);
+        File file = directoryChooser.showDialog(null);
         return file;
     }
 
-    public File initFileOpen(Stage stage, File directory, String title, String extension) {
+    public File initFileOpen(File directory, String title, String extension) {
         final FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
         fileChooser.setInitialDirectory(directory);
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Рабочие файлы", extension));
-        File file = fileChooser.showOpenDialog(stage);
+        File file = fileChooser.showOpenDialog(null);
         return file;
     }
 
     public void reloadAllSessions() {
-        for (Stage s : listStage.values()) {
+        for (SceneSource s : listStage.values()) {
             ((InitComponentV2) s).reloadSession(this, true);
-            s.hide();
         }
         lastStage = listStage.entrySet().iterator().next().getKey();
         selectedStage = lastStage;
         showStage(selectedStage);
     }
 
-    public Stage getStage(String name) {
+    public SceneSource getStage(String name) {
         return listStage.get(name);
     }
 
-    public Stage getSelectedStage() {
+    public SceneSource getSelectedStage() {
         return getStage(selectedStage);
     }
 
-    public Stage createStage(InitComponentV2 stageComp, String name) {
-        Stage stage = (Stage) stageComp;
-        stage.setOnCloseRequest(event -> {
-            if (taskManager.getCurrentTask() != null) {
-                event.consume();
-                initConformationDialog("�� �������, ��� ������ ������� ���������?", "��������� �������� ��� "
-                                + "�� ���������. ���� �� ������ ��, ��� ����� ��������� � ������� ������",
-                        () -> {
-                            taskManager.setClose(true);
-                            stage.hide();
-                        }, null);
-            } else Platform.exit();
-        });
-        listStage.put(name, stage);
-        return stage;
+    public SceneSource createStage(InitComponentV2 stageComp, String name) {
+        listStage.put(name, stageComp);
+        return stageComp;
     }
 
     @Nullable
-    public Stage reloadPrimaryStage(String name) {
+    public SceneSource reloadPrimaryStage(String name) {
         if (listStage.isEmpty() && listStage.size() < 2) return null;
-        Stage stage = listStage.get(name);
+        SceneSource stage = listStage.get(name);
         boolean load = ((InitComponentV2) stage).onShow(this);
         if (load) {
             lastStage = selectedStage;
@@ -198,14 +185,12 @@ public class Helper {
     }
 
     @Nullable
-    public Stage showStage(String name, Object... params) {
-        if (listStage.isEmpty() && listStage.size() < 2) return null;
-        Stage stage = listStage.get(name);
+    public SceneSource showStage(String name, Object... params) {
+        if (listStage.size() < 2) return null;
+        SceneSource stage = listStage.get(name);
         boolean load = ((InitComponentV2) stage).onShow(this, params);
         if (load) {
-            listStage.get(selectedStage).hide();
-            stage.centerOnScreen();
-            stage.show();
+            Main.setScene(stage.getScene(this), stage.getTitle());
             lastStage = selectedStage;
             selectedStage = name;
         }
@@ -213,8 +198,8 @@ public class Helper {
     }
 
     @Nullable
-    public Stage showLastStage() {
-        Stage stage = null;
+    public SceneSource showLastStage() {
+        SceneSource stage = null;
         if (lastStage != selectedStage) stage = showStage(getLastStage());
         return stage;
     }
@@ -231,9 +216,6 @@ public class Helper {
         return taskManager;
     }
 
-    public HostServices getHost() {
-        return host;
-    }
 
     public boolean isChildFocused(Parent parent) {
         for (Node node : parent.getChildrenUnmodifiable()) {

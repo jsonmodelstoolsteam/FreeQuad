@@ -2,56 +2,86 @@ package application;
 
 import application.run.ProgressPane;
 import application.run.TaskManager;
-import application.stages.StageChangeModel;
-import application.stages.StageEditor;
-import application.stages.StageFromJava;
-import application.stages.StageStart;
-import javafx.application.Application;
+import application.stages.*;
 import javafx.application.Platform;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
 
-public class Main extends Application {
+import javax.swing.*;
+
+public class Main {
 
     static int weight;
     static int height;
-
-    protected Parameters par;
     private Helper helper;
 
-    @Override
-    public void start(Stage primaryStage) {
+    private void initStage() {
+        helper.createStage(new StageStart(), "Start");
+        helper.createStage(new StageChangeModel(), "ChangeModel");
+        helper.createStage(new StageFromJava(), "FromJava");
+        helper.createStage(new StageEditor(), "Editor");
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                initAndShowGUI();
+            }
+        });
+    }
+
+    private static JFrame frame;
+
+    static JFrame frame() {
+        if (frame == null)
+            frame = new JFrame("Swing and JavaFX");
+        return frame;
+    }
+
+    private static JFXPanel fxPanel;
+
+    static JFXPanel fxPanel() {
+        if (fxPanel == null)
+            fxPanel = new JFXPanel();
+        return fxPanel;
+    }
+
+    private static void initAndShowGUI() {
+        JFrame frame = frame();
+        frame.add(fxPanel());
+        frame.setSize(300, 200);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Platform.runLater(() -> initFX(fxPanel()));
+    }
+
+    private static void initFX(JFXPanel fxPanel) {
+        Main main = new Main();
 
         //Приложение сможет работать в фоне
         Platform.setImplicitExit(false);
 
         //Самый главный контент:)
-        helper = new Helper(getHostServices());
-        par = getParameters();
+        main.helper = new Helper();
 
         //Менеджер задач
-        helper.setTaskManager(new TaskManager(new ProgressPane()));
+        main.helper.setTaskManager(new TaskManager(new ProgressPane()));
 
         //Регистрация окон
-        initStage();
+        main.initStage();
 
         //Замена главного окна
-        primaryStage = helper.reloadPrimaryStage("Editor");
+        SceneSource primaryStage = main.helper.reloadPrimaryStage("Editor");
 
-        //Показ главного окна
-        primaryStage.show();
+        Scene scene = primaryStage.getScene(main.helper);
+        setScene(scene, primaryStage.getTitle());
     }
 
-    private void initStage() {
-        helper.createStage(new StageStart(helper), "Start");
-        helper.createStage(new StageChangeModel(helper), "ChangeModel");
-        helper.createStage(new StageFromJava(helper), "FromJava");
-        helper.createStage(new StageEditor(helper), "Editor");
-    }
-
-    public static void main(String[] args) {
-        weight = (int) Screen.getPrimary().getVisualBounds().getWidth();
-        height = (int) Screen.getPrimary().getVisualBounds().getHeight();
-        launch(args);
+    public static void setScene(Scene scene, String title) {
+        fxPanel.setScene(scene);
+        frame().setSize((int) scene.getWidth(), (int) scene.getHeight());
+        frame().setTitle(title);
     }
 }
