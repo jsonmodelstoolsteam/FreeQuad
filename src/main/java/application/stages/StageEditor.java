@@ -4,6 +4,7 @@ import application.Helper;
 import application.stages.components.ModIconImage;
 import application.stages.components.ModMenuBar;
 import application.stages.components.ModScrollPane;
+import javafx.embed.swing.SwingNode;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
@@ -47,6 +48,9 @@ public class StageEditor extends Stage implements InitComponentV2 {
                     panePrimitives.setText("Примитивы");
             //Панель редактора
             Pane editorPane = new Pane();
+                SwingNode swingNode = new SwingNode();
+                editorPane.getChildren().add(swingNode);
+
                 //Тут, возможно, панель редактора
             ModScrollPane rightScroll = new ModScrollPane();
             rightScroll.setFitToWidth(true);
