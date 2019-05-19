@@ -6,8 +6,12 @@ import application.stages.*;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
 
 import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Field;
 
 public class Main {
 
@@ -33,7 +37,7 @@ public class Main {
 
     private static JFrame frame;
 
-    static JFrame frame() {
+    public static JFrame frame() {
         if (frame == null)
             frame = new JFrame("Swing and JavaFX");
         return frame;
@@ -77,6 +81,16 @@ public class Main {
 
         Scene scene = primaryStage.getScene(main.helper);
         setScene(scene, primaryStage.getTitle());
+
+        Canvas c = new Canvas();
+        frame.add(c);
+        frame.setVisible(true);
+        try {
+            Display.setParent(c);
+            Display.create();
+        } catch (LWJGLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void setScene(Scene scene, String title) {

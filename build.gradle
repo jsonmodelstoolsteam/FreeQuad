@@ -1,6 +1,21 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+    }
+}
 plugins {
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
     id 'java'
 }
+
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+
+
 
 group 'freequad'
 version '1.0'
@@ -11,13 +26,13 @@ repositories {
     mavenCentral()
 }
 
-project.ext.lwjglVersion = "3.0.0a"
+project.ext.lwjglVersion = "2.9.3"
 
 dependencies {
-    compile "org.lwjgl:lwjgl:${lwjglVersion}"
-    compile "org.lwjgl:lwjgl-platform:${lwjglVersion}:natives-windows"
-    compile "org.lwjgl:lwjgl-platform:${lwjglVersion}:natives-linux"
-    compile "org.lwjgl:lwjgl-platform:${lwjglVersion}:natives-osx"
+    compile "org.lwjgl.lwjgl:lwjgl:${lwjglVersion}"
+    compile "org.lwjgl.lwjgl:lwjgl-platform:${lwjglVersion}:natives-windows"
+    compile "org.lwjgl.lwjgl:lwjgl-platform:${lwjglVersion}:natives-linux"
+    compile "org.lwjgl.lwjgl:lwjgl-platform:${lwjglVersion}:natives-osx"
 
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 

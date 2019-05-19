@@ -4,7 +4,6 @@ import application.functional.ButtonFunction;
 import application.run.TaskManager;
 import application.stages.InitComponentV2;
 import application.stages.SceneSource;
-import com.sun.istack.internal.Nullable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
@@ -103,7 +102,7 @@ public class Helper {
         alert.showAndWait();
     }
 
-    public void initConformationDialog(String header, String content, ButtonFunction funcOK, @Nullable ButtonFunction funcNO) {
+    public void initConformationDialog(String header, String content, ButtonFunction funcOK, ButtonFunction funcNO) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.initStyle(StageStyle.UTILITY);
         ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setDefaultButton(false);
@@ -116,7 +115,6 @@ public class Helper {
         else if (funcNO != null) funcNO.onClick();
     }
 
-    @Nullable
     public String initTextFieldDialog(String title, String content, String labelContent) {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle(title);
@@ -172,7 +170,6 @@ public class Helper {
         return stageComp;
     }
 
-    @Nullable
     public SceneSource reloadPrimaryStage(String name) {
         if (listStage.isEmpty() && listStage.size() < 2) return null;
         SceneSource stage = listStage.get(name);
@@ -184,7 +181,6 @@ public class Helper {
         return stage;
     }
 
-    @Nullable
     public SceneSource showStage(String name, Object... params) {
         if (listStage.size() < 2) return null;
         SceneSource stage = listStage.get(name);
@@ -197,7 +193,6 @@ public class Helper {
         return stage;
     }
 
-    @Nullable
     public SceneSource showLastStage() {
         SceneSource stage = null;
         if (lastStage != selectedStage) stage = showStage(getLastStage());

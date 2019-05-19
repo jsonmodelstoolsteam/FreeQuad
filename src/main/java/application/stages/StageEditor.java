@@ -1,6 +1,7 @@
 package application.stages;
 
 import application.Helper;
+import application.Main;
 import application.stages.components.ModIconImage;
 import application.stages.components.ModMenuBar;
 import application.stages.components.ModScrollPane;
@@ -14,6 +15,8 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+
+import java.awt.*;
 
 public class StageEditor implements InitComponentV2 {
     @Override

@@ -1,7 +1,5 @@
 package application.stages.components;
 
-import com.sun.istack.internal.Nullable;
-
 import javafx.collections.ObservableList;
 import javafx.util.StringConverter;
 
@@ -14,7 +12,6 @@ public class JStringConverter extends StringConverter<JFile> {
     }
 
     @Override
-    @Nullable
     public JFile fromString(String string) {
         JFile fileI = null;
         for (JFile file : bList) {
