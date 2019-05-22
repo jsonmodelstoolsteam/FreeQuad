@@ -1,7 +1,6 @@
 package application.run.tasks;
 
 import application.Helper;
-import application.stages.StageChangeModel;
 import application.stages.components.JFile;
 import javafx.collections.ObservableList;
 
@@ -66,6 +65,5 @@ public class TaskChange extends ModTaskChange {
     @Override
     protected void succeeded() {
         super.succeeded();
-        ((StageChangeModel) helper.getStage("ChangeModel")).updateTextArea(helper);
     }
 }

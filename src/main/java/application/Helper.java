@@ -2,10 +2,8 @@ package application;
 
 import application.functional.ButtonFunction;
 import application.run.TaskManager;
-import application.stages.InitComponentV2;
+import application.stages.SceneSource;
 import com.sun.istack.internal.Nullable;
-import javafx.application.HostServices;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
@@ -27,7 +25,7 @@ import java.util.regex.Pattern;
 
 public class Helper {
 
-    private Map<String, Stage> listStage;
+    private Map<String, SceneSource> listStage;
     private String selectedStage;
     private String lastStage;
 
@@ -36,10 +34,8 @@ public class Helper {
     public final Font standardFontTitle;
     public final Font bigFont;
     private TaskManager taskManager;
-    private final HostServices host;
 
-    public Helper(HostServices host) {
-        this.host = host;
+    public Helper() {
         charset = StandardCharsets.UTF_8;
         standardFont = new Font(12.5);
         standardFontTitle = new Font(13);
@@ -151,70 +147,40 @@ public class Helper {
     }
 
     public void reloadAllSessions() {
-        for (Stage s : listStage.values()) {
-            ((InitComponentV2) s).reloadSession(this, true);
-            s.hide();
+        for (SceneSource s : listStage.values()) {
+            s.reloadSession(this, true);
         }
         lastStage = listStage.entrySet().iterator().next().getKey();
         selectedStage = lastStage;
         showStage(selectedStage);
     }
 
-    public Stage getStage(String name) {
+    public SceneSource getStage(String name) {
         return listStage.get(name);
     }
 
-    public Stage getSelectedStage() {
+    public SceneSource getSelectedStage() {
         return getStage(selectedStage);
     }
 
-    public Stage createStage(InitComponentV2 stageComp, String name) {
-        Stage stage = (Stage) stageComp;
-        stage.setOnCloseRequest(event -> {
-            if (taskManager.getCurrentTask() != null) {
-                event.consume();
-                initConformationDialog("�� �������, ��� ������ ������� ���������?", "��������� �������� ��� "
-                                + "�� ���������. ���� �� ������ ��, ��� ����� ��������� � ������� ������",
-                        () -> {
-                            taskManager.setClose(true);
-                            stage.hide();
-                        }, null);
-            } else Platform.exit();
-        });
-        listStage.put(name, stage);
-        return stage;
+    public SceneSource createStage(SceneSource stageComp, String name) {
+        listStage.put(name, stageComp);
+        return stageComp;
     }
 
     @Nullable
-    public Stage reloadPrimaryStage(String name) {
+    public SceneSource showStage(String name) {
         if (listStage.isEmpty() && listStage.size() < 2) return null;
-        Stage stage = listStage.get(name);
-        boolean load = ((InitComponentV2) stage).onShow(this);
-        if (load) {
-            lastStage = selectedStage;
-            selectedStage = name;
-        }
+        SceneSource stage = listStage.get(name);
+        Main.instance.show(stage);
+        lastStage = selectedStage;
+        selectedStage = name;
         return stage;
     }
 
     @Nullable
-    public Stage showStage(String name, Object... params) {
-        if (listStage.isEmpty() && listStage.size() < 2) return null;
-        Stage stage = listStage.get(name);
-        boolean load = ((InitComponentV2) stage).onShow(this, params);
-        if (load) {
-            listStage.get(selectedStage).hide();
-            stage.centerOnScreen();
-            stage.show();
-            lastStage = selectedStage;
-            selectedStage = name;
-        }
-        return stage;
-    }
-
-    @Nullable
-    public Stage showLastStage() {
-        Stage stage = null;
+    public SceneSource showLastStage() {
+        SceneSource stage = null;
         if (lastStage != selectedStage) stage = showStage(getLastStage());
         return stage;
     }
@@ -229,10 +195,6 @@ public class Helper {
 
     public TaskManager getTaskManager() {
         return taskManager;
-    }
-
-    public HostServices getHost() {
-        return host;
     }
 
     public boolean isChildFocused(Parent parent) {

@@ -1,9 +1,9 @@
 package application.stages.components;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
+import lwjgui.event.ActionEvent;
+import lwjgui.event.EventHandler;
+import lwjgui.scene.control.ContextMenu;
+import lwjgui.scene.control.MenuItem;
 
 public class FileContextMenu extends ContextMenu {
 

@@ -1,6 +1,4 @@
-plugins {
-    id 'java'
-}
+apply plugin: 'java'
 
 group 'freequad'
 version '1.0'
@@ -26,16 +24,25 @@ switch (OperatingSystem.current()) {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+	compile "com.google.guava:guava:21.0"
+	
 	implementation "org.lwjgl:lwjgl:$lwjglVersion"
 	implementation "org.lwjgl:lwjgl-glfw:$lwjglVersion"
 	implementation "org.lwjgl:lwjgl-nanovg:$lwjglVersion"
 	implementation "org.lwjgl:lwjgl-opengl:$lwjglVersion"
+	implementation "org.lwjgl:lwjgl-stb:$lwjglVersion"
+	implementation "org.lwjgl:lwjgl-tinyfd:$lwjglVersion"
+	
 	runtimeOnly "org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives"
 	runtimeOnly "org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives"
 	runtimeOnly "org.lwjgl:lwjgl-nanovg:$lwjglVersion:$lwjglNatives"
 	runtimeOnly "org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-stb:$lwjglVersion:$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-tinyfd:$lwjglVersion:$lwjglNatives"
 	implementation "org.joml:joml:${jomlVersion}"
 }

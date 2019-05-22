@@ -1,29 +1,29 @@
 package application.stages;
 
 import application.Helper;
-import application.stages.components.ModIconImage;
-import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
-import javafx.scene.Cursor;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+import lwjgui.geometry.Insets;
+import lwjgui.paint.Color;
+import lwjgui.scene.Scene;
+import lwjgui.scene.control.*;
+import lwjgui.scene.layout.*;
 
-public class StageStart extends Stage implements InitComponentV2 {
+public class StageStart implements SceneSource {
 
-    private ChoiceBox<String> choiceBoxAct;
+    private final Helper helper;
+    private ComboBox<String> choiceBoxAct;
     private CheckBox check;
 
     public StageStart(Helper helper) {
+        this.helper = helper;
+    }
+
+    @Override
+    public void reloadSession(Helper helper, boolean hide) {
+        check.setChecked(true);
+    }
+
+    @Override
+    public Scene getScene() {
         VBox root = new VBox();
         String ver1 = "1.12+";
         String act1 = "Изменение моделей";
@@ -34,61 +34,51 @@ public class StageStart extends Stage implements InitComponentV2 {
         Label labelVer = new Label("Выберите версию:\n\n");
         Label labelAct = new Label("Выберите задачу:\n\n");
 
-        ChoiceBox<String> choiceBoxVer = new ChoiceBox<>(FXCollections.observableArrayList(ver1));
-        choiceBoxVer.getSelectionModel().select(0);
-        choiceBoxVer.setDisable(true);
-        choiceBoxAct = new ChoiceBox<>(FXCollections.observableArrayList(act1, act2, act3, act4));
+        ComboBox<String> choiceBoxVer = new ComboBox<>(ver1);
 
-        VBox box1 = new VBox(labelVer, choiceBoxVer);
+        choiceBoxAct = new ComboBox<>();
+        choiceBoxVer.getItems().addAll(act1, act2, act3, act4);
+
+        VBox box1 = new VBox();
         box1.setPadding(new Insets(20, 0, 0, 30));
+        box1.getChildren().addAll(labelVer, choiceBoxVer);
 
-        VBox box2 = new VBox(labelAct, choiceBoxAct);
+        VBox box2 = new VBox();
         box2.setPadding(new Insets(0, 0, 0, 30));
+
+        box2.getChildren().addAll(labelAct, choiceBoxAct);
 
         HBox boxOk = new HBox();
 
         check = new CheckBox("Только \".json\"");
-        check.setVisible(false);
 
         Button OK = new Button("Старт");
         OK.setPrefSize(50, 15);
-        OK.setCursor(Cursor.HAND);
-        HBox.setMargin(OK, new Insets(6, 0, 6, 0));
-        HBox.setMargin(check, new Insets(10, 27, 6, 30));
 
         OK.setOnMouseReleased(event -> {
-            String act = choiceBoxAct.getSelectionModel().getSelectedItem();
+            String act = choiceBoxAct.getValue();
 
-            if (act.equals(act1)) helper.showStage("ChangeModel", check.isSelected());
+            if (act.equals(act1)) helper.showStage("ChangeModel");
             else if (act.equals(act2)) helper.showStage("FromJava");
-            else if (act.equals(act1)) ;
-            else if (act.equals(act3)) ;
-            else if (act.equals(act4)) ;
+            else if (act.equals(act3)) helper.showStage("Editor");
+            else if (act.equals(act4)) helper.showStage("Editor");
         });
 
         boxOk.getChildren().addAll(check, OK);
-        check.setSelected(true);
+        check.setChecked(true);
 
-        choiceBoxAct.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> check.setVisible(newValue == act1));
+        //choiceBoxAct.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> check.setVisible(newValue == act1));
 
-        choiceBoxAct.getSelectionModel().select(0);
+        //choiceBoxAct.getSelectionModel().select(0);
 
         root.getChildren().addAll(box1, box2, boxOk);
-        root.setBackground(new Background(new BackgroundFill(Color.LIGHTSTEELBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        root.setBackground(Color.LIGHT_BLUE);
 
-        setScene(new Scene(root, 255, 170));
-        setResizable(false);
-        setTitle("Выбор задач");
-        getIcons().add(new ModIconImage(helper, "icon1.png"));
+        return new Scene(root, 255, 170);
     }
 
     @Override
-    public boolean onShow(Helper helper, Object... params) {
-        return true;
-    }
-
-    @Override
-    public void reloadSession(Helper helper, boolean hide) {
-        check.setSelected(true);
+    public String getTitle() {
+        return "Выбор задач";
     }
 }
