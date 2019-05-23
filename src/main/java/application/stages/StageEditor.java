@@ -3,11 +3,13 @@ package application.stages;
 import application.Helper;
 import application.stages.components.ModMenuBar;
 import lwjgui.geometry.Orientation;
+import lwjgui.scene.Node;
 import lwjgui.scene.Scene;
 import lwjgui.scene.control.*;
-import lwjgui.scene.layout.HBox;
-import lwjgui.scene.layout.Pane;
+import lwjgui.scene.layout.BorderPane;
 import lwjgui.scene.layout.VBox;
+
+import java.util.function.Consumer;
 
 public class StageEditor implements SceneSource {
 
@@ -33,33 +35,17 @@ public class StageEditor implements SceneSource {
             menuBar.setPrefWidth(25);
             root.getChildren().add(menuBar);
 
-            //Тулбар
-            ToolBar toolUp = new ToolBar();
-            {
-                toolUp.setOrientation(Orientation.HORIZONTAL);
-                toolUp.setPrefHeight(25);
-
-                Label labelTools = new Label("Инструменты");
-                Label labelEditor = new Label("Редактор");
-                Label labelStructure = new Label("Структура");
-
-                labelTools.setPrefWidth(190);
-                labelEditor.setPrefWidth(685);
-
-                toolUp.getItems().addAll(labelTools, labelEditor, labelStructure);
-            }
-
-            root.getChildren().add(toolUp);
-
-            HBox hroot = new HBox();
+            BorderPane hroot = new BorderPane();
             {
                 //Левое меню
                 ScrollPane leftScroll = new ScrollPane();
                 {
-                    leftScroll.setPrefSize(200, 650);
+                    leftScroll.setFillToParentHeight(true);
+                    leftScroll.setPrefWidth(200);
 
                     TreeView<String> leftBox = new TreeView<>();
                     {
+                        leftBox.setFillToParentHeight(true);
                         TreeItem<String> instruments = new TreeItem<>("Инструменты");
                         TreeItem<String> primitives = new TreeItem<>("Примитивы");
 
@@ -70,17 +56,16 @@ public class StageEditor implements SceneSource {
                     leftScroll.setContent(leftBox);
                 }
 
-                //Панель редактора
-                Pane editorPane = new Pane();
-                editorPane.setPrefSize(700, 650);
-
                 //Правое меню
                 ScrollPane rightScroll = new ScrollPane();
                 {
-                    rightScroll.setPrefSize(200, 650);
+
+                    rightScroll.setFillToParentHeight(true);
+                    rightScroll.setPrefWidth(200);
 
                     TreeView<String> rightBox = new TreeView<>();
                     {
+                        rightBox.setFillToParentHeight(true);
                         TreeItem<String> modelStructure = new TreeItem<>("Структура модели");
 
                         rightBox.getItems().add(modelStructure);
@@ -90,7 +75,9 @@ public class StageEditor implements SceneSource {
                 }
 
 
-                hroot.getChildren().addAll(leftScroll, editorPane, rightScroll);
+                hroot.setLeft(vBoxed(toolBared(new Label("Инструменты")), leftScroll));
+                hroot.setCenter(apply(vBoxed(toolBared(new Label("Редактор"))), r -> r.setFillToParentWidth(true)));
+                hroot.setRight(vBoxed(toolBared(new Label("Структура")), rightScroll));
             }
 
             root.getChildren().add(hroot);
@@ -98,6 +85,26 @@ public class StageEditor implements SceneSource {
 
         //Настройка окно
         return new Scene(root, 1100, 700);
+    }
+
+    private <T extends Node> T apply(T node, Consumer<T> f) {
+        f.accept(node);
+        return node;
+    }
+
+    private ToolBar toolBared(Label... label) {
+        ToolBar r = new ToolBar();
+        r.getItems().addAll(label);
+        r.setFillToParentWidth(true);
+        r.setOrientation(Orientation.HORIZONTAL);
+        return r;
+    }
+
+    private VBox vBoxed(Node... a) {
+        VBox r = new VBox();
+        r.getChildren().addAll(a);
+        r.setFillToParentHeight(true);
+        return r;
     }
 
     @Override
