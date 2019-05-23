@@ -1,1 +1,19 @@
 tool.quad=Quad
+toolcat.transforms=Transforms
+toolcat.navigate=Navigate
+toolcat.primitives=Primitives
+modelStructure=Model structure
+
+title.toolbar=Toolbar
+title.editor=Editor
+title.modelStructure=Model structure
+
+menu.program=File
+menu.program.reload=Reload
+menu.program.newproject=New project
+menu.program.closeproject=Close project
+menu.program.mainmenu=Main menu
+menu.program.exit=exit
+menu.editor=Editor
+menu.help=Help
+menu.help.about=About
