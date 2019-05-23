@@ -30,6 +30,6 @@ public class LangUtil {
     }
 
     public static String translateToLocal(String label) {
-        return langMap().get(label);
+        return langMap().getOrDefault(label, "");
     }
 }
