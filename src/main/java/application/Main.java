@@ -57,6 +57,7 @@ public class Main extends LWJGUIApplication {
         initStage();
 
         show(helper.getStage("Editor"));
+        window.setPosition(100, 100);
         window.show();
     }
 

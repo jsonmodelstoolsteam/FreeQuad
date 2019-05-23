@@ -65,6 +65,10 @@ public class Window {
 
 	private int lastWidth;
 	private int lastHeight;
+
+    public void setPosition(int x, int y) {
+        GLFW.glfwSetWindowPos(getContext().getWindowHandle(), x, y);
+    }
 	
 	private HashMap<EventListenerType, ArrayList<EventListener>> eventListeners = new HashMap<>();
 	
