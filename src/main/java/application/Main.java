@@ -28,7 +28,7 @@ public class Main extends LWJGUIApplication {
     public static final int WIDTH = 320;
     public static final int HEIGHT = 240;
 
-    private Helper helper;
+    public Helper helper;
 
     private static CheckBox spinBox;
     private static Slider slider;

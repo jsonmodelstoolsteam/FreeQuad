@@ -67,7 +67,7 @@ public class Helper {
         }
     }
 
-    public InputStream getRes(String name) {
+    public InputStream getResource(String name) {
         return Helper.class.getResourceAsStream("/" + name);
     }
 
