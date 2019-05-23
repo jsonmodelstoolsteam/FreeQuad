@@ -1,9 +1,11 @@
 package application.stages;
 
 import application.Helper;
+import application.LangUtil;
 import application.stages.components.ModMenuBar;
 import application.stages.components.ToolCategory;
 import application.stages.components.ToolItem;
+import application.stages.components.UnlocalisedLabel;
 import lwjgui.geometry.Orientation;
 import lwjgui.scene.Node;
 import lwjgui.scene.Scene;
@@ -48,9 +50,9 @@ public class StageEditor implements SceneSource {
                     TreeView<String> leftBox = new TreeView<>();
                     {
                         leftBox.setFillToParentHeight(true);
-                        TreeItem<String> transforms = new ToolCategory("Преобразования");
-                        TreeItem<String> navigate = new ToolCategory("Навигация");
-                        TreeItem<String> primitives = new ToolCategory("Примитивы");
+                        TreeItem<String> transforms = new ToolCategory("transforms");
+                        TreeItem<String> navigate = new ToolCategory("navigate");
+                        TreeItem<String> primitives = new ToolCategory("primitives");
                         {
                             TreeItem<String> quad = new ToolItem("quad");
 
@@ -75,7 +77,7 @@ public class StageEditor implements SceneSource {
                     TreeView<String> rightBox = new TreeView<>();
                     {
                         rightBox.setFillToParentHeight(true);
-                        TreeItem<String> modelStructure = new TreeItem<>("Структура модели");
+                        TreeItem<String> modelStructure = new TreeItem<>(LangUtil.translateToLocal("modelStructure"));
 
                         rightBox.getItems().add(modelStructure);
                     }
@@ -84,9 +86,9 @@ public class StageEditor implements SceneSource {
                 }
 
 
-                hroot.setLeft(vBoxed(toolBared(new Label("Инструменты")), leftScroll));
-                hroot.setCenter(apply(vBoxed(toolBared(new Label("Редактор"))), r -> r.setFillToParentWidth(true)));
-                hroot.setRight(vBoxed(toolBared(new Label("Структура")), rightScroll));
+                hroot.setLeft(vBoxed(toolBared(new UnlocalisedLabel("title.toolbar")), leftScroll));
+                hroot.setCenter(apply(vBoxed(toolBared(new UnlocalisedLabel("title.editor"))), r -> r.setFillToParentWidth(true)));
+                hroot.setRight(vBoxed(toolBared(new UnlocalisedLabel("title.modelStructure")), rightScroll));
             }
 
             root.getChildren().add(hroot);

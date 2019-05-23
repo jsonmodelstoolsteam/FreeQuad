@@ -1,33 +1,36 @@
 package application.stages.components;
 
 import application.Helper;
+import application.Main;
 import application.stages.SceneSource;
 import lwjgui.scene.control.*;
 import org.lwjgl.glfw.GLFW;
+
+import static application.LangUtil.translateToLocal;
 
 public class ModMenuBar extends MenuBar {
 
     public ModMenuBar(SceneSource root, Helper helper) {
 
-        Menu fileMenu = new Menu("Программа");
+        Menu fileMenu = new Menu(translateToLocal("menu.program"));
         {
-            MenuItem newSes = new MenuItem("Перезапустить программу");
+            MenuItem newSes = new MenuItem(translateToLocal("menu.program.reload"));
             newSes.setOnAction(event -> helper.reloadAllSessions());
 
-            MenuItem newItem = new MenuItem("Новый проект");
+            MenuItem newItem = new MenuItem(translateToLocal("menu.program.newproject"));
             newItem.setOnAction(event -> root.reloadSession(helper, false));
 
-            MenuItem newItemM = new MenuItem("Закрыть проект");
+            MenuItem newItemM = new MenuItem(translateToLocal("menu.program.closeproject"));
             newItemM.setOnAction(event -> {
                 root.reloadSession(helper, true);
                 helper.showStage("Start");
             });
 
-            MenuItem menu = new MenuItem("Меню");
+            MenuItem menu = new MenuItem(translateToLocal("menu.program.mainmenu"));
             menu.setOnAction(event -> helper.showStage("Start"));
 
-            MenuItem exitItem = new MenuItem("Выход");
-            exitItem.setOnAction(event -> GLFW.glfwWindowShouldClose(0));
+            MenuItem exitItem = new MenuItem(translateToLocal("menu.program.exit"));
+            exitItem.setOnAction(event -> Main.instance.exit());
 
             SeparatorMenuItem sepMenu = new SeparatorMenuItem();
 
@@ -35,11 +38,11 @@ public class ModMenuBar extends MenuBar {
             fileMenu.getItems().addAll(newItem, menu, sepMenu, newItemM, newSes, exitItem);
         }
 
-        Menu editMenu = new Menu("Редактор");
+        Menu editMenu = new Menu(translateToLocal("menu.editor"));
 
-        Menu helpMenu = new Menu("Помощь");
+        Menu helpMenu = new Menu(translateToLocal("menu.help"));
         {
-            MenuItem about = new MenuItem("О программе");
+            MenuItem about = new MenuItem(translateToLocal("menu.help.about"));
 
             helpMenu.getItems().add(about);
         }

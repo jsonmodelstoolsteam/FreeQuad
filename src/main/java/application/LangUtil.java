@@ -18,7 +18,8 @@ public class LangUtil {
             try (BufferedReader br = new BufferedReader(new InputStreamReader(Main.instance.helper.getResource("freequad/lang/" + langFile + ".lang")))) {
                 br.lines().forEach(line -> {
                     int separatorIndex = line.indexOf("=");
-                    r.put(line.substring(0, separatorIndex), line.substring(separatorIndex + 1));
+                    if (separatorIndex != -1)
+                        r.put(line.substring(0, separatorIndex), line.substring(separatorIndex + 1));
                 });
             } catch (Exception e) {
                 e.printStackTrace();

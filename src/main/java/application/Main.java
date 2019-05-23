@@ -11,6 +11,7 @@ import lwjgui.scene.Window;
 import lwjgui.scene.control.CheckBox;
 import lwjgui.scene.control.Slider;
 import org.joml.Matrix4f;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
@@ -66,6 +67,10 @@ public class Main extends LWJGUIApplication {
         window.setScene(stage.getScene());
         window.setTitle(stage.getTitle());
         window.setIcon(stage.getIcon());
+    }
+
+    public void exit() {
+        GLFW.glfwSetWindowShouldClose(window.getContext().getWindowHandle(),true);
     }
 
     static class RenderingCallbackTest implements Renderer {
