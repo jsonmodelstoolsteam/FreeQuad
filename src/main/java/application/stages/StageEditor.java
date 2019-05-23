@@ -2,6 +2,8 @@ package application.stages;
 
 import application.Helper;
 import application.stages.components.ModMenuBar;
+import application.stages.components.ToolCategory;
+import application.stages.components.ToolItem;
 import lwjgui.geometry.Orientation;
 import lwjgui.scene.Node;
 import lwjgui.scene.Scene;
@@ -46,11 +48,18 @@ public class StageEditor implements SceneSource {
                     TreeView<String> leftBox = new TreeView<>();
                     {
                         leftBox.setFillToParentHeight(true);
-                        TreeItem<String> instruments = new TreeItem<>("Инструменты");
-                        TreeItem<String> primitives = new TreeItem<>("Примитивы");
+                        TreeItem<String> transforms = new ToolCategory("Преобразования");
+                        TreeItem<String> navigate = new ToolCategory("Навигация");
+                        TreeItem<String> primitives = new ToolCategory("Примитивы");
+                        {
+                            TreeItem<String> quad = new ToolItem("quad");
 
-                        leftBox.getItems().add(instruments);
+                            primitives.getItems().addAll(quad);
+                        }
+
                         leftBox.getItems().add(primitives);
+                        leftBox.getItems().add(transforms);
+                        leftBox.getItems().add(navigate);
                     }
 
                     leftScroll.setContent(leftBox);
