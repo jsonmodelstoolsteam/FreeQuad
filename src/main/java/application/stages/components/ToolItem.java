@@ -7,6 +7,6 @@ import lwjgui.scene.image.ImageView;
 
 public class ToolItem extends TreeItem<String> {
     public ToolItem(String label) {
-        super(LangUtil.translateToLocal("tool," + label), new ImageView(new Image("freequad/tools/" + label + ".png")));
+        super(LangUtil.translateToLocal("tool." + label), new ImageView(new Image("freequad/tools/" + label + ".png")));
     }
 }
