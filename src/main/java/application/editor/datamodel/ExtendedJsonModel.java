@@ -12,6 +12,6 @@ public class ExtendedJsonModel {
         transformations = new TransformationMap();
     }
 
-    public final QuadGroup rootGroup;
-    public final TransformationMap transformations;//mutable; АРГХ! Когда я начинаю писать комменты в коде - значит все идет по пизде!
+    public QuadGroup rootGroup;
+    public TransformationMap transformations;//mutable; АРГХ! Когда я начинаю писать комменты в коде - значит все идет по пизде!
 }

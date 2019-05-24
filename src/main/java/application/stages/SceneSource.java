@@ -1,9 +1,10 @@
 package application.stages;
 
-import java.io.File;
-
 import application.Helper;
+import lwjgui.gl.Renderer;
 import lwjgui.scene.Scene;
+
+import java.io.File;
 
 public interface SceneSource {
 

@@ -3,8 +3,10 @@ package application.stages.components;
 import application.Helper;
 import application.Main;
 import application.stages.SceneSource;
-import lwjgui.scene.control.*;
-import org.lwjgl.glfw.GLFW;
+import lwjgui.scene.control.Menu;
+import lwjgui.scene.control.MenuBar;
+import lwjgui.scene.control.MenuItem;
+import lwjgui.scene.control.SeparatorMenuItem;
 
 import static application.LangUtil.translateToLocal;
 

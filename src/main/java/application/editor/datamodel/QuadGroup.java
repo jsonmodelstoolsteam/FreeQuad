@@ -1,22 +1,24 @@
 package application.editor.datamodel;
 
-import com.google.common.collect.ImmutableSet;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class QuadGroup {
 
     public static final QuadGroup empty = new QuadGroup();
 
-    public final ImmutableSet<Quad> quads;
-    public final ImmutableSet<QuadGroup> groups;
+    public Set<Quad> quads;
+    public Set<QuadGroup> groups;
 
     public QuadGroup() {
-        quads = ImmutableSet.of();
-        groups = ImmutableSet.of();
+        quads = new HashSet<>();//ImmutableSet.of();
+        groups = new HashSet<>();//ImmutableSet.of();
     }
 
-    public QuadGroup(ImmutableSet<Quad> quads, ImmutableSet<QuadGroup> groups) {
+    public QuadGroup(Set<Quad> quads, Set<QuadGroup> groups) {
         this.quads = quads;
         this.groups = groups;
     }

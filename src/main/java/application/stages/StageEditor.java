@@ -2,6 +2,8 @@ package application.stages;
 
 import application.Helper;
 import application.LangUtil;
+import application.editor.EditorState;
+import application.editor.render.RenderingCallback;
 import application.stages.components.ModMenuBar;
 import application.stages.components.ToolCategory;
 import application.stages.components.ToolItem;
@@ -11,11 +13,13 @@ import lwjgui.scene.Node;
 import lwjgui.scene.Scene;
 import lwjgui.scene.control.*;
 import lwjgui.scene.layout.BorderPane;
+import lwjgui.scene.layout.OpenGLPane;
 import lwjgui.scene.layout.VBox;
 
 import java.util.function.Consumer;
 
 public class StageEditor implements SceneSource {
+    public static EditorState state = new EditorState();
 
     private final Helper helper;
 
@@ -66,6 +70,10 @@ public class StageEditor implements SceneSource {
 
                     leftScroll.setContent(leftBox);
                 }
+                OpenGLPane editorPane = new OpenGLPane();
+                editorPane.setFillToParentHeight(true);
+                editorPane.setFillToParentWidth(true);
+                editorPane.setRendererCallback(new RenderingCallback(editorPane));
 
                 //Правое меню
                 ScrollPane rightScroll = new ScrollPane();
@@ -87,7 +95,7 @@ public class StageEditor implements SceneSource {
 
 
                 hroot.setLeft(vBoxed(toolBared(new UnlocalisedLabel("title.toolbar")), leftScroll));
-                hroot.setCenter(apply(vBoxed(toolBared(new UnlocalisedLabel("title.editor"))), r -> r.setFillToParentWidth(true)));
+                hroot.setCenter(apply(vBoxed(toolBared(new UnlocalisedLabel("title.editor")), editorPane), r -> r.setFillToParentWidth(true)));
                 hroot.setRight(vBoxed(toolBared(new UnlocalisedLabel("title.modelStructure")), rightScroll));
             }
 
@@ -122,4 +130,5 @@ public class StageEditor implements SceneSource {
     public String getTitle() {
         return "Редактор моделей";
     }
+
 }
