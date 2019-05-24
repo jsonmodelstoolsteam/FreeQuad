@@ -20,6 +20,9 @@ public class RenderingCallback implements Renderer {
 
     @Override
     public void render(Context context) {
+        float aspect = (float) (editorPane.getWidth() / editorPane.getHeight());
+        GL11.glLoadIdentity();
+        GL11.glOrtho(-aspect, aspect, -1, 1, -1, 1);
 
         // Clear to black
         glClearColor(1, 1, 1, 1);
