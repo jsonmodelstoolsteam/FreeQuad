@@ -53,6 +53,11 @@ public class StageEditor implements SceneSource {
 
                     TreeView<String> leftBox = new TreeView<>();
                     {
+                        leftBox.setOnSelectItem(e -> {
+                            TreeItem<String> lastSelectedItem = leftBox.getLastSelectedItem();
+                            if (!(lastSelectedItem instanceof ToolItem))
+                                leftBox.clearSelectedItems();
+                        });
                         leftBox.setFillToParentHeight(true);
                         TreeItem<String> transforms = new ToolCategory("transforms");
                         TreeItem<String> navigate = new ToolCategory("navigate");
