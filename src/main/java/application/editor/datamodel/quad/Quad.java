@@ -1,12 +1,13 @@
-package application.editor.datamodel;
+package application.editor.datamodel.quad;
 
+import application.editor.datamodel.ModelEntry;
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.UUID;
 
-public class Quad {
+public class Quad implements ModelEntry {
 
     public transient final int id = UUID.randomUUID().hashCode();
 

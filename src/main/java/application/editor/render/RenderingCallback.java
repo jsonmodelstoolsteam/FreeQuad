@@ -2,7 +2,7 @@ package application.editor.render;
 
 import application.editor.EditorState;
 import application.editor.datamodel.quad.Quad;
-import application.editor.datamodel.quadgroup.ModelEntry;
+import application.editor.datamodel.quadgroup.QuadGroup;
 import lwjgui.gl.Renderer;
 import lwjgui.scene.Context;
 import lwjgui.scene.layout.OpenGLPane;
@@ -40,7 +40,7 @@ public class RenderingCallback implements Renderer {
         glEnd();
     }
 
-    private void render(ModelEntry model) {
+    private void render(QuadGroup model) {
         model.groups.forEach(this::render);
         model.quads.forEach(this::render);
     }

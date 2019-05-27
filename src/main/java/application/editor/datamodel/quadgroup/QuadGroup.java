@@ -1,26 +1,22 @@
-package application.editor.datamodel;
+package application.editor.datamodel.quadgroup;
 
+import application.editor.datamodel.ModelEntry;
+import com.google.common.collect.ImmutableSet;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import java.util.HashSet;
-import java.util.Set;
-
-public class QuadGroup {
+public class QuadGroup implements IQuadGroup {
 
     public static final QuadGroup empty = new QuadGroup();
 
-    public Set<Quad> quads;
-    public Set<QuadGroup> groups;
+    public final ImmutableSet<ModelEntry> group;
 
-    public QuadGroup() {
-        quads = new HashSet<>();//ImmutableSet.of();
-        groups = new HashSet<>();//ImmutableSet.of();
+    public QuadGroup(ImmutableSet<ModelEntry> group) {
+        this.group = group;
     }
 
-    public QuadGroup(Set<Quad> quads, Set<QuadGroup> groups) {
-        this.quads = quads;
-        this.groups = groups;
+    public QuadGroup() {
+        group = ImmutableSet.of();
     }
 
     @Override
@@ -28,8 +24,7 @@ public class QuadGroup {
         if (o instanceof QuadGroup) {
             QuadGroup otherAdmin = (QuadGroup) o;
             EqualsBuilder builder = new EqualsBuilder();
-            builder.append(quads, otherAdmin.quads);
-            builder.append(groups, otherAdmin.groups);
+            builder.append(group, otherAdmin.group);
             return builder.isEquals();
         } else
             return false;
@@ -38,8 +33,7 @@ public class QuadGroup {
     @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
-        builder.append(quads);
-        builder.append(groups);
+        builder.append(group);
         return builder.toHashCode();
     }
 }

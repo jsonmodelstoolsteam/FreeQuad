@@ -1,4 +1,4 @@
-package application.editor.datamodel;
+package application.editor.datamodel.quad;
 
 public class ResourceLocation {
 

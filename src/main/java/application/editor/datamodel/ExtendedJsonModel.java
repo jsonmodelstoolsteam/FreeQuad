@@ -1,17 +1,20 @@
 package application.editor.datamodel;
 
+import application.editor.datamodel.perspective.TransformationMap;
+import application.editor.datamodel.quadgroup.QuadGroup;
+
 public class ExtendedJsonModel {
 
-    public ExtendedJsonModel(QuadGroup rootGroup, TransformationMap transformations) {
-        this.rootGroup = rootGroup;
+    public ExtendedJsonModel(QuadGroup root, TransformationMap transformations) {
+        this.root = root;
         this.transformations = transformations;
     }
 
     public ExtendedJsonModel() {
-        rootGroup = QuadGroup.empty;
+        root = QuadGroup.empty;
         transformations = new TransformationMap();
     }
 
-    public QuadGroup rootGroup;
+    public QuadGroup root;
     public TransformationMap transformations;//mutable; АРГХ! Когда я начинаю писать комменты в коде - значит все идет по пизде!
 }
