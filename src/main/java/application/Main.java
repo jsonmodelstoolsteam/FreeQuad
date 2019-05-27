@@ -5,25 +5,18 @@ import application.stages.StageEditor;
 import application.stages.StageStart;
 import lwjgui.LWJGUIApplication;
 import lwjgui.scene.Window;
-import lwjgui.scene.control.CheckBox;
-import lwjgui.scene.control.Slider;
 import org.lwjgl.glfw.GLFW;
 
 public class Main extends LWJGUIApplication {
     public static Main instance;
-    public static final int WIDTH = 320;
-    public static final int HEIGHT = 240;
 
-    public Helper helper;
+    public Helper helper = new Helper();
+    public SceneSource currentScene = new StageEditor(helper);
 
-    private static CheckBox spinBox;
-    private static Slider slider;
-    private static double rotation;
-    Window window;
+    private Window window;
 
 
     private void initStage() {
-        helper = new Helper();
         helper.createStage(new StageStart(helper), "Start");
         helper.createStage(new StageEditor(helper), "Editor");
     }
@@ -47,6 +40,7 @@ public class Main extends LWJGUIApplication {
 
 
     public void show(SceneSource stage) {
+        currentScene = stage;
         window.setScene(stage.getScene());
         window.setTitle(stage.getTitle());
         window.setIcon(stage.getIcon());

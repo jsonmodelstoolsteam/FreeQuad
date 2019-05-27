@@ -1,8 +1,9 @@
 package application.editor;
 
 import application.editor.datamodel.ExtendedJsonModel;
-import application.editor.datamodel.Quad;
-import application.editor.datamodel.Vertex;
+import application.editor.datamodel.quad.Quad;
+import application.editor.datamodel.quad.Vertex;
+import application.editor.tools.Tool;
 import com.google.common.collect.ImmutableList;
 
 import java.awt.*;
@@ -28,10 +29,10 @@ public class EditorState {
                 new Vertex(1, 1, 0, Color.WHITE),
                 new Vertex(1, 0, 0, Color.MAGENTA)
         ), 0, null));
-        currentTool = null;
+        currentTool = new application.editor.tools.Quad();
     }
 
     private void addQuad(Quad quad) {
-        model.rootGroup.quads.add(quad);
+        model.root.quads.add(quad);
     }
 }

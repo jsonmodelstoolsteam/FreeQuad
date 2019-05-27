@@ -19,7 +19,7 @@ import lwjgui.scene.layout.VBox;
 import java.util.function.Consumer;
 
 public class StageEditor implements SceneSource {
-    public static EditorState state = new EditorState();
+    public EditorState state = new EditorState();
 
     private final Helper helper;
 
@@ -63,7 +63,7 @@ public class StageEditor implements SceneSource {
                         TreeItem<String> navigate = new ToolCategory("navigate");
                         TreeItem<String> primitives = new ToolCategory("primitives");
                         {
-                            TreeItem<String> quad = new ToolItem("quad");
+                            TreeItem<String> quad = new ToolItem("quad", state);
 
                             primitives.getItems().addAll(quad);
                         }
@@ -78,7 +78,11 @@ public class StageEditor implements SceneSource {
                 OpenGLPane editorPane = new OpenGLPane();
                 editorPane.setFillToParentHeight(true);
                 editorPane.setFillToParentWidth(true);
-                editorPane.setRendererCallback(new RenderingCallback(editorPane));
+                editorPane.setRendererCallback(new RenderingCallback(editorPane, state));
+
+                editorPane.setOnMousePressed(e -> System.out.println("press"));
+                editorPane.setOnMouseDragged(e -> System.out.println("drag"));
+                editorPane.setOnMouseReleased(e -> System.out.println("release"));
 
                 //Правое меню
                 ScrollPane rightScroll = new ScrollPane();

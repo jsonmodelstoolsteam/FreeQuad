@@ -1,8 +1,8 @@
 package application.editor.render;
 
-import application.editor.datamodel.Quad;
-import application.editor.datamodel.QuadGroup;
-import application.stages.StageEditor;
+import application.editor.EditorState;
+import application.editor.datamodel.quad.Quad;
+import application.editor.datamodel.quadgroup.ModelEntry;
 import lwjgui.gl.Renderer;
 import lwjgui.scene.Context;
 import lwjgui.scene.layout.OpenGLPane;
@@ -12,10 +12,12 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class RenderingCallback implements Renderer {
     private final OpenGLPane editorPane;
+    private final EditorState editorState;
 
-    public RenderingCallback(OpenGLPane editorPane) {
+    public RenderingCallback(OpenGLPane editorPane, EditorState editorState) {
 
         this.editorPane = editorPane;
+        this.editorState = editorState;
     }
 
     @Override
@@ -33,12 +35,12 @@ public class RenderingCallback implements Renderer {
         // Render geometry
         glBegin(GL_QUADS);
         {
-            render(StageEditor.state.model.rootGroup);
+            render(editorState.model.root);
         }
         glEnd();
     }
 
-    private void render(QuadGroup model) {
+    private void render(ModelEntry model) {
         model.groups.forEach(this::render);
         model.quads.forEach(this::render);
     }
