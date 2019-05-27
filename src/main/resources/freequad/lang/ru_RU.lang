@@ -1,0 +1,19 @@
+tool.quad=Квад
+toolcat.transforms=Преобразования
+toolcat.navigate=Навигация
+toolcat.primitives=Примитивы
+modelStructure=Структура модели
+
+title.toolbar=Инструменты
+title.editor=Редактор
+title.modelStructure=Структура
+
+menu.program=Программа
+menu.program.reload=Перезапустить программу
+menu.program.newproject=Новый проект
+menu.program.closeproject=Закрыть проект
+menu.program.mainmenu=Меню
+menu.program.exit=Выход
+menu.editor=Редактор
+menu.help=Помощь
+menu.help.about=О программе

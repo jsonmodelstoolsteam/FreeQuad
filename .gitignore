@@ -30,3 +30,4 @@ hs_err_pid*
 /classes/
 /out/
 .gradle
+.idea/workspace.xml
