@@ -3,15 +3,15 @@ package application.editor.datamodel;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class QuadGroup implements ModelEntry {
 
-    public Set<ModelEntry> group;
+    public Map<String, ModelEntry> group;
 
     public QuadGroup() {
-        group = new HashSet<>();
+        group = new HashMap<>();
     }
 
     @Override
