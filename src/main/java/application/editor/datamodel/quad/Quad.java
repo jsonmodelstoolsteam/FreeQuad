@@ -5,15 +5,16 @@ import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Quad implements ModelEntry {
 
     public transient final int id = UUID.randomUUID().hashCode();
 
-    public final ImmutableList<Vertex> vertices;
-    public final int tint;
-    public final ResourceLocation texture;
+    public final List<Vertex> vertices;
+    public int tint;
+    public ResourceLocation texture;
     private String name;
 
     public Quad(String name, ImmutableList<Vertex> vertices, int tint, ResourceLocation texture) {
