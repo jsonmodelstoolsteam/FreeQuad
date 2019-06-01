@@ -19,7 +19,7 @@ import lwjgui.scene.layout.VBox;
 import java.util.function.Consumer;
 
 public class StageEditor implements SceneSource {
-    public static EditorState state = new EditorState();
+    public EditorState editorState = new EditorState();
 
     private final Helper helper;
 
@@ -78,7 +78,7 @@ public class StageEditor implements SceneSource {
                 OpenGLPane editorPane = new OpenGLPane();
                 editorPane.setFillToParentHeight(true);
                 editorPane.setFillToParentWidth(true);
-                editorPane.setRendererCallback(new RenderingCallback(editorPane));
+                editorPane.setRendererCallback(new RenderingCallback(editorPane, editorState));
 
                 //Правое меню
                 ScrollPane rightScroll = new ScrollPane();

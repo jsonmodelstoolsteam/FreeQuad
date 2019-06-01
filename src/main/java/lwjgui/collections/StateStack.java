@@ -16,11 +16,11 @@ public class StateStack<E> {
 	}
 	
 	/**
-	 * Push a state onto the stack. If the current state is not fully forwarded, all future states are lost.
+	 * Push a editorState onto the stack. If the current editorState is not fully forwarded, all future states are lost.
 	 * @param state
 	 */
 	public void Push(E state) {
-		// Remove any states that exist after the current state. (Delete future)
+		// Remove any states that exist after the current editorState. (Delete future)
 		while ( states.size() > current ) {
 			states.remove(states.size()-1);
 		}
@@ -33,12 +33,12 @@ public class StateStack<E> {
 		// Add to states
 		states.add(state);
 		
-		// Set current state
+		// Set current editorState
 		current = states.size();
 	}
 	
 	/**
-	 * Returns if the current state is the most recent state.
+	 * Returns if the current editorState is the most recent editorState.
 	 * @return
 	 */
 	public boolean isCurrent() {
@@ -46,7 +46,7 @@ public class StateStack<E> {
 	}
 
 	/**
-	 * Rewind one state on the stack.
+	 * Rewind one editorState on the stack.
 	 * @return
 	 */
 	public E Rewind() {
@@ -61,7 +61,7 @@ public class StateStack<E> {
 	}
 	
 	/**
-	 * Move forward one state on the stack
+	 * Move forward one editorState on the stack
 	 * @return
 	 */
 	public E Forward() {

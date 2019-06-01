@@ -1,8 +1,9 @@
 package application.editor.render;
 
+import application.editor.CameraPos;
+import application.editor.EditorState;
 import application.editor.datamodel.Quad;
 import application.editor.datamodel.QuadGroup;
-import application.stages.StageEditor;
 import lwjgui.gl.Renderer;
 import lwjgui.scene.Context;
 import lwjgui.scene.layout.OpenGLPane;
@@ -12,10 +13,12 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class RenderingCallback implements Renderer {
     private final OpenGLPane editorPane;
+    private EditorState editorState;
 
-    public RenderingCallback(OpenGLPane editorPane) {
+    public RenderingCallback(OpenGLPane editorPane, EditorState editorState) {
 
         this.editorPane = editorPane;
+        this.editorState = editorState;
     }
 
     @Override
@@ -30,10 +33,37 @@ public class RenderingCallback implements Renderer {
 
         GL11.glDisable(GL11.GL_CULL_FACE);
 
+        glScaled(0.5, 0.5, 0.5);
+
+        CameraPos cameraPos = editorState.cameraPos;
+        glRotated(cameraPos.getPitch(), 1, 0, 0);
+        glRotated(cameraPos.getYaw(), 0, 1, 0);
+
+
+        renderBasePlane();
+
         // Render geometry
         glBegin(GL_QUADS);
         {
-            render(StageEditor.state.model.rootGroup);
+            render(editorState.model.rootGroup);
+        }
+        glEnd();
+    }
+
+
+    private void renderBasePlane() {
+        glBegin(GL_LINES);
+        {
+
+            glColor3f(1, 0, 1);
+            for (int i = -10; i <= 10; i++) {
+                glVertex3f(-10, i, -1);
+                glVertex3f(10, i, -1);
+            }
+            for (int i = -10; i <= 10; i++) {
+                glVertex3f(i, -10, -1);
+                glVertex3f(i, 10, -1);
+            }
         }
         glEnd();
     }
