@@ -3,7 +3,7 @@ package application.editor;
 public class CameraPos {
     public double x, y, z;
     private double yaw, pitch, roll;
-    private double maxAngle = Math.PI * 2;
+    private double maxAngle = 360;
 
     public CameraPos(double x, double y, double z, double yaw, double pitch, double roll) {
         this.x = x;
