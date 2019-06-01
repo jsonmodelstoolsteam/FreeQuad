@@ -13,7 +13,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class RenderingCallback implements Renderer {
     private final OpenGLPane editorPane;
-    private EditorState editorState;
+    private final EditorState editorState;
 
     public RenderingCallback(OpenGLPane editorPane, EditorState editorState) {
 
