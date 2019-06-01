@@ -2,6 +2,7 @@ package application.editor.render;
 
 import application.editor.CameraPos;
 import application.editor.EditorState;
+import application.editor.datamodel.ModelEntry;
 import application.editor.datamodel.quad.Quad;
 import application.editor.datamodel.quadgroup.QuadGroup;
 import lwjgui.gl.Renderer;
@@ -45,7 +46,7 @@ public class RenderingCallback implements Renderer {
         // Render geometry
         glBegin(GL_QUADS);
         {
-            render(editorState.model.rootGroup);
+            renderModel(editorState.model.rootGroup);
         }
         glEnd();
     }
@@ -68,12 +69,14 @@ public class RenderingCallback implements Renderer {
         glEnd();
     }
 
-    private void render(QuadGroup model) {
-        model.groups.forEach(this::render);
-        model.quads.forEach(this::render);
+    private void renderModel(ModelEntry model) {
+        if (model instanceof QuadGroup) {
+            ((QuadGroup) model).group.values().forEach(this::renderModel);
+        } else if (model instanceof Quad)
+            renderQuad((Quad) model);
     }
 
-    private void render(Quad quad) {
+    private void renderQuad(Quad quad) {
         quad.vertices.forEach(v -> {
             glColor3ub((byte) v.color.getRed(), (byte) v.color.getGreen(), (byte) v.color.getBlue());
             glVertex3f(v.x, v.y, v.z);
