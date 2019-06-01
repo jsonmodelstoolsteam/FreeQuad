@@ -8,7 +8,7 @@ public class ExtendedJsonModel {
     }
 
     public ExtendedJsonModel() {
-        rootGroup = QuadGroup.empty;
+        rootGroup = new QuadGroup();
         transformations = new TransformationMap();
     }
 

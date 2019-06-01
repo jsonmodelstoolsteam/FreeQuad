@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.UUID;
 
-public class Quad {
+public class Quad implements ModelEntry{
 
     public transient final int id = UUID.randomUUID().hashCode();
 
