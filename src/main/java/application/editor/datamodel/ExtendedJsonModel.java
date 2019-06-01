@@ -1,5 +1,8 @@
 package application.editor.datamodel;
 
+import application.editor.datamodel.perspective.TransformationMap;
+import application.editor.datamodel.quadgroup.QuadGroup;
+
 public class ExtendedJsonModel {
 
     public ExtendedJsonModel(QuadGroup rootGroup, TransformationMap transformations) {
@@ -13,5 +16,5 @@ public class ExtendedJsonModel {
     }
 
     public QuadGroup rootGroup;
-    public TransformationMap transformations;//mutable; АРГХ! Когда я начинаю писать комменты в коде - значит все идет по пизде!
+    public TransformationMap transformations;
 }
