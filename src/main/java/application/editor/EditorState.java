@@ -1,8 +1,8 @@
 package application.editor;
 
 import application.editor.datamodel.ExtendedJsonModel;
-import application.editor.datamodel.Quad;
-import application.editor.datamodel.Vertex;
+import application.editor.datamodel.quad.Quad;
+import application.editor.datamodel.quad.Vertex;
 import com.google.common.collect.ImmutableList;
 
 import java.awt.*;

@@ -2,8 +2,8 @@ package application.editor.render;
 
 import application.editor.CameraPos;
 import application.editor.EditorState;
-import application.editor.datamodel.Quad;
-import application.editor.datamodel.QuadGroup;
+import application.editor.datamodel.quad.Quad;
+import application.editor.datamodel.quadgroup.QuadGroup;
 import lwjgui.gl.Renderer;
 import lwjgui.scene.Context;
 import lwjgui.scene.layout.OpenGLPane;
