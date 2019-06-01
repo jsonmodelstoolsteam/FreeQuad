@@ -1,6 +1,7 @@
-package application.editor.datamodel;
+package application.editor.datamodel.perspective;
 
 import application.editor.datamodel.math.Matrix4;
+import application.editor.datamodel.perspective.Perspective;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package application.editor.datamodel;
+package application.editor.datamodel.perspective;
 
 public enum Perspective {
     THIRD_PERSON_LEFT_HAND,

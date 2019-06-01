@@ -1,4 +1,4 @@
-package application.editor.datamodel;
+package application.editor.datamodel.quad;
 
 import application.editor.datamodel.math.Vec2;
 import application.editor.datamodel.math.Vec3;
