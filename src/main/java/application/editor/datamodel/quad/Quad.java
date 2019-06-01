@@ -14,11 +14,13 @@ public class Quad implements ModelEntry {
     public final ImmutableList<Vertex> vertices;
     public final int tint;
     public final ResourceLocation texture;
+    private String name;
 
-    public Quad(ImmutableList<Vertex> vertices, int tint, ResourceLocation texture) {
+    public Quad(String name, ImmutableList<Vertex> vertices, int tint, ResourceLocation texture) {
         this.vertices = vertices;
         this.tint = tint;
         this.texture = texture;
+        this.name = name;
     }
 
     @Override
@@ -43,5 +45,10 @@ public class Quad implements ModelEntry {
         builder.append(texture);
         builder.append(id);
         return builder.toHashCode();
+    }
+
+    @Override
+    public String name() {
+        return name;
     }
 }

@@ -10,8 +10,10 @@ import java.util.Map;
 public class QuadGroup implements ModelEntry {
 
     public Map<String, ModelEntry> group;
+    private String name;
 
-    public QuadGroup() {
+    public QuadGroup(String name) {
+        this.name = name;
         group = new HashMap<>();
     }
 
@@ -31,5 +33,10 @@ public class QuadGroup implements ModelEntry {
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(group);
         return builder.toHashCode();
+    }
+
+    @Override
+    public String name() {
+        return name;
     }
 }

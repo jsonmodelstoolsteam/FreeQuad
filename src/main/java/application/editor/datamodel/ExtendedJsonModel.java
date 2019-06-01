@@ -11,7 +11,7 @@ public class ExtendedJsonModel {
     }
 
     public ExtendedJsonModel() {
-        rootGroup = new QuadGroup();
+        rootGroup = new QuadGroup("root");
         transformations = new TransformationMap();
     }
 

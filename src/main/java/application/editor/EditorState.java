@@ -22,7 +22,7 @@ public class EditorState {
     public EditorState() {
         cameraPos = new CameraPos(0, 0, 0, 0, 0, 0);
         model = new ExtendedJsonModel();
-        addQuad(new Quad(ImmutableList.of(
+        addQuad(new Quad("test", ImmutableList.of(
                 new Vertex(0, 0, 0, Color.MAGENTA),
                 new Vertex(0, 1, 0, Color.MAGENTA),
                 new Vertex(1, 1, 0, Color.WHITE),
@@ -32,6 +32,6 @@ public class EditorState {
     }
 
     private void addQuad(Quad quad) {
-        model.rootGroup.quads.add(quad);
+        model.rootGroup.group.put(quad.name(), quad);
     }
 }
